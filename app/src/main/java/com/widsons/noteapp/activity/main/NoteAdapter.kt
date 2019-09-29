@@ -17,6 +17,14 @@ import kotlinx.android.synthetic.main.item_note_layout.view.*
 class NoteAdapter : RecyclerView.Adapter<NoteDataViewHolder>() {
 
     var datas : MutableList<NoteData> = ArrayList()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
+
+    var onDeleteNote : (Int) -> Unit = {
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteDataViewHolder {
         return NoteDataViewHolder(
@@ -41,6 +49,12 @@ class NoteAdapter : RecyclerView.Adapter<NoteDataViewHolder>() {
             .itemView
             .text_view_money
             .setText(datas[position].money.toString())
+
+        holder.itemView.button_delete.setOnClickListener {
+            onDeleteNote(position)
+        }
+
+
     }
 
 }
